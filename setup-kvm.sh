@@ -21,14 +21,17 @@ main() {
     ;;
     debian|ubuntu)
        inst=apt
-       PKGS="qemu libvirt-bin python-libvirt vagrant-libvirt libvirt-clients libvirt-daemon-system qemu-kvm-spice virtinst ovmf"
+       PKGS="qemu libvirt-bin python-libvirt vagrant-libvirt libvirt-clients libvirt-daemon-system virtinst ovmf"
+       add-apt-repository -y ppa:jacob/virtualisation
        setup_debian $VERSION_ID
+       POST="echo 'nothing to do in POST'"
     ;;
     *) xiterr 1 "Ask my masters for help, I don't know what to do for '$osfamily'."
      ;;
   esac
 
   $inst -y install qemu-kvm libguestfs-tools bridge-utils iptables util-linux unbound curl wget jq virt-viewer spice-vdagent $PKGS
+  eval $POST
 
   virt-host-validate
 }
@@ -67,4 +70,14 @@ setup_debian() {
 }
 
 main $*
+
+echo ""
+echo "COMPLETE"
+echo "Example VM launch to test libvirt (PXE boot):"
+echo ""
+echo "virt-install --name=foobar --ram=4096 --cpu host --hvm --vcpus=2 --os-type=linux --disk /var/lib/libvirt/images/disk.qcow2,size=20,bus=ide --network bridge=virbr0,model=e1000 --pxe --graphics vnc,listen=0.0.0.0,password=foobar --check all=off"
+echo ""
+
+
+
 exit $?

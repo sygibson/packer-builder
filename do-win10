@@ -1,0 +1,1 @@
+rm -rf output; TMPDIR=tmp PACKER_OPTIONS="-var-file=variables.json" PACKER_LOG=1 make build-windows-10-1909-libvirt
