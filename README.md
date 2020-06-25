@@ -1,4 +1,19 @@
-This builds Windows 2012R2/10/2016/2019 base Vagrant boxes using [Packer](https://www.packer.io/).
+
+This builds various OSes using base Vagrant boxes using [Packer](https://www.packer.io/).
+
+# Setup
+
+Requires `git` (to get this repo!).
+
+Run the following two scripts to get Packer, Vagrant, and setup KVM/Qemu:
+
+* `setup-tools.sh` # sets up packer, vagrant, etc.
+* `setup-kvm.sh``  # sets up KVM, Qemu, and base tools
+
+
+# Example
+
+Run `do-win10` as a simplified example to build Windows 10 1909 (non-UEFI).  Performs builds in the directory where you cloned this github repo.
 
 
 # Usage
