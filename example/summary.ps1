@@ -174,7 +174,7 @@ namespace WinProdKeyFind
         }
 
         /// <summary>
-        /// Decodes Windows Product Key from the DigitalProductId. 
+        /// Decodes Windows Product Key from the DigitalProductId.
         /// This method applies to DigitalProductId from Windows 8 or newer versions of Windows.
         /// </summary>
         /// <param name="digitalProductId">DigitalProductId to decode</param>

@@ -58,7 +58,7 @@
   "provisioners": [
     {
       "type": "powershell",
-      "script": "disable-windows-updates.ps1"
+      "script": "scripts/disable-windows-updates.ps1"
     },
     {
       "type": "powershell",
@@ -70,40 +70,40 @@
     },
     {
       "type": "powershell",
-      "script": "virtualbox-prevent-vboxsrv-resolution-delay.ps1"
+      "script": "scripts/virtualbox-prevent-vboxsrv-resolution-delay.ps1"
     },
     {
       "type": "windows-restart"
     },
     {
       "type": "powershell",
-      "script": "provision.ps1"
+      "script": "scripts/provision.ps1"
     },
     {
       "type": "windows-update"
     },
     {
       "type": "powershell",
-      "script": "enable-remote-desktop.ps1"
+      "script": "scripts/enable-remote-desktop.ps1"
     },
     {
       "type": "powershell",
-      "script": "provision-openssh.ps1"
+      "script": "scripts/provision-openssh.ps1"
     },
     {
       "type": "windows-restart"
     },
     {
       "type": "powershell",
-      "script": "provision-cloudbase-init.ps1"
+      "script": "scripts/provision-cloudbase-init.ps1"
     },
     {
       "type": "powershell",
-      "script": "eject-media.ps1"
+      "script": "scripts/eject-media.ps1"
     },
     {
       "type": "powershell",
-      "script": "optimize.ps1"
+      "script": "scripts/optimize.ps1"
     }
   ]
 }
