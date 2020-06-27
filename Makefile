@@ -92,7 +92,8 @@ linux-%-amd64-virtualbox.box: linux/%.json
 	@echo to add to local vagrant install do:
 	@echo vagrant box add -f $*-amd64 $@
 
-%-amd64-libvirt.box: %.json %/autounattend.xml templates/Vagrantfile.template scripts/*.ps1 drivers
+%-amd64-libvirt.box: windows/%.json %/autounattend.xml templates/Vagrantfile.template scripts/*.ps1 drivers
+	cd windows
 	rm -f $@
 	CHECKPOINT_DISABLE=1 PACKER_LOG=1 PACKER_LOG_PATH=$*-amd64-libvirt-packer.log \
 		packer build $(PACKER_OPTIONS) -only=$*-amd64-libvirt -on-error=abort $*.json

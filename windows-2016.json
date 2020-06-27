@@ -1,8 +1,8 @@
 {
   "variables": {
-    "disk_size": "40960",
-    "output_directory": "/scratch/output",
-    "complete_directory": "/scratch/complete",
+    "disk_size": "20480",
+    "output_directory": "output",
+    "complete_directory": "complete",
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "iso_url": "https://software-download.microsoft.com/download/pr/Windows_Server_2016_Datacenter_EVAL_en-us_14393_refresh.ISO",

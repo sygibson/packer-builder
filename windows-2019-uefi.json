@@ -1,8 +1,8 @@
 {
   "variables": {
     "disk_size": "20480",
-    "output_directory": "/scratch/output",
-    "complete_directory": "/scratch/complete",
+    "output_directory": "output",
+    "complete_directory": "complete",
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "iso_url": "https://software-download.microsoft.com/download/pr/17763.737.190906-2324.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us_1.iso",
