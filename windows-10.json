@@ -40,7 +40,7 @@
       "http_directory": ".",
       "floppy_files": [
         "windows-10/autounattend.xml",
-        "winrm.ps1",
+        "scripts/winrm.ps1",
         "drivers/vioserial/w10/amd64/*.cat",
         "drivers/vioserial/w10/amd64/*.inf",
         "drivers/vioserial/w10/amd64/*.sys",
@@ -91,7 +91,7 @@
       "shutdown_command": "shutdown /s /t 0 /f /d p:4:1 /c \"Packer Shutdown\"",
       "floppy_files": [
         "windows-10/autounattend.xml",
-        "winrm.ps1"
+        "scripts/winrm.ps1"
       ]
     }
   ],

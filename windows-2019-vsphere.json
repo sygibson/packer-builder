@@ -45,8 +45,8 @@
       ],
       "floppy_files": [
         "tmp/windows-2019-vsphere/autounattend.xml",
-        "vmtools.ps1",
-        "winrm.ps1"
+        "scripts/vmtools.ps1",
+        "scripts/winrm.ps1"
       ],
       "communicator": "winrm",
       "winrm_username": "vagrant",

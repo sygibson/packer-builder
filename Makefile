@@ -19,7 +19,7 @@ VSPHERE_IMAGES+= windows-2016
 VSPHERE_IMAGES+= windows-2019
 VSPHERE_IMAGES+= windows-10
 
-SETUP:=$(shell bash make-setup.sh)
+SETUP:=$(shell bash scripts/make-setup.sh)
 
 # Generate build-* targets
 #LIN_VIRTUALBOX_BUILDS= $(addsuffix -virtualbox,$(addprefix linux/$(LIN_IMAGES)/build-,$(LIN_IMAGES)))
@@ -81,7 +81,7 @@ linux-%-amd64-virtualbox.box: linux/%.json
 	@echo to add to local vagrant install do:
 	@echo vagrant box add -f $*-amd64 $@
 
-%-amd64-virtualbox.box: %.json %/autounattend.xml Vagrantfile.template *.ps1 drivers
+%-amd64-virtualbox.box: %.json %/autounattend.xml templates/Vagrantfile.template scripts/*.ps1 drivers
 	rm -f $@
 	CHECKPOINT_DISABLE=1 PACKER_LOG=1 PACKER_LOG_PATH=$*-amd64-virtualbox-packer.log \
 		packer build $(PACKER_OPTIONS) -only=$*-amd64-virtualbox -on-error=abort $*.json
@@ -92,7 +92,7 @@ linux-%-amd64-virtualbox.box: linux/%.json
 	@echo to add to local vagrant install do:
 	@echo vagrant box add -f $*-amd64 $@
 
-%-amd64-libvirt.box: %.json %/autounattend.xml Vagrantfile.template *.ps1 drivers
+%-amd64-libvirt.box: %.json %/autounattend.xml templates/Vagrantfile.template scripts/*.ps1 drivers
 	rm -f $@
 	CHECKPOINT_DISABLE=1 PACKER_LOG=1 PACKER_LOG_PATH=$*-amd64-libvirt-packer.log \
 		packer build $(PACKER_OPTIONS) -only=$*-amd64-libvirt -on-error=abort $*.json
@@ -103,7 +103,7 @@ linux-%-amd64-virtualbox.box: linux/%.json
 	@echo to add to local vagrant install do:
 	@echo vagrant box add -f $*-amd64 $@
 
-%-uefi-amd64-virtualbox.box: %-uefi.json %-uefi/autounattend.xml Vagrantfile-uefi.template *.ps1 drivers %-uefi-amd64-virtualbox.iso
+%-uefi-amd64-virtualbox.box: %-uefi.json %-uefi/autounattend.xml templates/Vagrantfile-uefi.template scripts/*.ps1 drivers %-uefi-amd64-virtualbox.iso
 	rm -f $@
 	cp /usr/share/OVMF/x64/OVMF_VARS.fd $*-uefi-amd64-virtualbox.nvram
 	CHECKPOINT_DISABLE=1 PACKER_LOG=1 PACKER_LOG_PATH=$*-uefi-amd64-virtualbox-packer.log \
@@ -115,7 +115,7 @@ linux-%-amd64-virtualbox.box: linux/%.json
 	@echo to add to local vagrant install do:
 	@echo vagrant box add -f $*-uefi-amd64 $@
 
-%-uefi-amd64-libvirt.box: %-uefi.json %-uefi/autounattend.xml Vagrantfile-uefi.template *.ps1 drivers
+%-uefi-amd64-libvirt.box: %-uefi.json %-uefi/autounattend.xml templates/Vagrantfile-uefi.template scripts/*.ps1 drivers
 	rm -f $@
 	cp /usr/share/OVMF/OVMF_VARS.fd $*-uefi-amd64-libvirt.nvram
 	CHECKPOINT_DISABLE=1 PACKER_LOG=1 PACKER_LOG_PATH=$*-uefi-amd64-libvirt-packer.log \
@@ -127,7 +127,7 @@ linux-%-amd64-virtualbox.box: linux/%.json
 	@echo to add to local vagrant install do:
 	@echo vagrant box add -f $*-uefi-amd64 $@
 
-windows-2019-uefi-amd64-virtualbox.iso: windows-2019-uefi/autounattend.xml winrm.ps1
+windows-2019-uefi-amd64-virtualbox.iso: windows-2019-uefi/autounattend.xml scripts/winrm.ps1
 	xorrisofs -J -R -input-charset ascii -o $@ $^
 
 tmp/%-vsphere/autounattend.xml: %/autounattend.xml
@@ -141,7 +141,7 @@ tmp/%-vsphere/autounattend.xml: %/autounattend.xml
 	@#        restart the installation.
 	sed -E 's,(.+)</DriverPaths>,\1    <PathAndCredentials wcm:action="add" wcm:keyValue="2"><Path>E:\\</Path></PathAndCredentials>\n\0,g' $< >$@
 
-%-amd64-vsphere.box: %-vsphere.json tmp/%-vsphere/autounattend.xml Vagrantfile.template *.ps1
+%-amd64-vsphere.box: %-vsphere.json tmp/%-vsphere/autounattend.xml templates/Vagrantfile.template scripts/*.ps1
 	rm -f $@
 	CHECKPOINT_DISABLE=1 PACKER_LOG=1 PACKER_LOG_PATH=$*-amd64-vsphere-packer.log \
 		packer build $(PACKER_OPTIONS) -only=$*-amd64-vsphere -on-error=abort $*-vsphere.json
