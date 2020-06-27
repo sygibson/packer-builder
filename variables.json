@@ -3,5 +3,7 @@
   "output_directory": "output",
   "complete_directory": "complete",
   "winrm_username": "vagrant",
-  "winrm_password": "vagrant"
+  "winrm_password": "vagrant",
+  "ssh_username": "rocketskates",
+  "ssh_password": "RocketSkates"
 }
