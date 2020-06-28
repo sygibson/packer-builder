@@ -13,7 +13,7 @@ IMAGES+= windows-10-1903
 IMAGES+= windows-10-1909
 # linux
 IMAGES+= linux-ubuntu-1804
-IMAGES+= ubuntu-1804
+#IMAGES+= ubuntu-1804
 
 # Images supporting vSphere
 VSPHERE_IMAGES+= windows-2016
@@ -28,7 +28,7 @@ SETUP:=$(shell bash scripts/make-setup.sh)
 #LIN_VSPHERE_BUILDS= $(addsuffix -vsphere,$(addprefix linux/$(LIN_IMAGES)/build-,$(LIN_IMAGES)))
 
 #LIN_LIBVIRT_BUILDS= $(addsuffix -libvirt,$(addprefix linux-build-,$(LIN_IMAGES)))
-#LIN_LIBVIRT_BUILDS= $(addsuffix -libvirt,$(addprefix build-,$(LIN_IMAGES)))
+LIN_LIBVIRT_BUILDS= $(addsuffix -libvirt,$(addprefix build-linux,$(LIN_IMAGES)))
 
 VIRTBOX_BUILDS= $(addsuffix -virtualbox,$(addprefix build-,$(IMAGES)))
 LIBVIRT_BUILDS= $(addsuffix -libvirt,$(addprefix build-,$(IMAGES)))
@@ -92,7 +92,7 @@ $(VSPHERE_BUILDS): build-%-vsphere: %-amd64-vsphere.box
 	rm -f $@
 	CHECKPOINT_DISABLE=1 PACKER_LOG=1 PACKER_LOG_PATH=$*-amd64-virtualbox-packer.log \
 		packer build $(PACKER_OPTIONS) -only=$*-amd64-virtualbox -on-error=abort $*.json
-	[[ $* =~ *windows* ]] && ./scripts/get-windows-updates-from-packer-log.sh \
+	./scripts/get-windows-updates-from-packer-log.sh \
 		$*-amd64-virtualbox-packer.log \
 		>$*-amd64-virtualbox-windows-updates.log
 	@echo BOX successfully built!
@@ -103,7 +103,7 @@ $(VSPHERE_BUILDS): build-%-vsphere: %-amd64-vsphere.box
 	rm -f $@
 	CHECKPOINT_DISABLE=1 PACKER_LOG=1 PACKER_LOG_PATH=$*-amd64-libvirt-packer.log \
 		packer build $(PACKER_OPTIONS) -only=$*-amd64-libvirt -on-error=abort $*.json
-	[[ $* =~ .*-windows-.* ]] && ./scripts/get-windows-updates-from-packer-log.sh \
+	./scripts/get-windows-updates-from-packer-log.sh \
 		$*-amd64-libvirt-packer.log \
 		>$*-amd64-libvirt-windows-updates.log
 	@echo BOX successfully built!
