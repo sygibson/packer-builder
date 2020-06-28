@@ -1,9 +1,28 @@
 
 This builds various OSes using base Vagrant boxes using [Packer](https://www.packer.io/).
 
-# Setup
+# Git Get the Packer Builder Content
 
 Requires `git` (to get this repo!).
+
+The Packer only config and content pieces to do the image builds is housed
+in the RackN Digital Rebar Provision Content (digitalrebar/provision-content)
+Github repo.  To pull only the Packer pieces, you can use Git to get just
+the Packer build content with the following:
+
+```
+git init
+git remote add origin https://github.com/digitalrebar/provision-content.git
+git fetch origin
+git checkout origin/v4 -- packer-builder/packer
+```
+
+This will produce a populated directory with the Packe build pieces in
+`packer-build/packer/` location.  There is also Bash script used in the
+Digital Rebar content to perform this task in the `templates`.
+
+
+# Setup
 
 Run the following two scripts to get Packer, Vagrant, and setup KVM/Qemu:
 

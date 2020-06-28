@@ -8,11 +8,16 @@
 set -e
 xiterr() { [[ $1 =~ ^[0-9]+$ ]] && { XIT=$1; shift; } || XIT=1; printf "FATAL: $*\n"; exit $XIT; }
 
+# example complete build artifact:
+# complete/windows-2019-amd64-libvirt/windows-2019-amd64-libvirt.box
 BASE="box.img"
-BLD=${PACKER_BUILD_NAME:-1}
+CDR=${COMPLETE_DIR:-$1}
+BLD=${PACKER_BUILD_NAME:-$2}
+BBX="$BLD.box"
+CMP="$CDR/$BLD/"
 BOX=$BLD
+RAW=$BOX.img
 QCW="$BOX.qcow2"
-RAW=$BLD.img
 
 [[ "$BOX" =~ .*\.box$ ]] || BOX="${BOX}.box"
 
@@ -26,5 +31,14 @@ which bsdtar > /dev/null 2>&1 && TAR=$(which bsdtar) || true
 CH=$($TAR --version | awk ' { print $1 } ')
 [[ "$CH" != "bsdtar" ]] && xiterr 1 "Require 'bsdtar', install it and try again."
 
-$TAR -s "/box.img/$QCW/" -xzvf $BOX $BASE
+cd $CMP
+pwd
+T=$(lscpu | grep "^Core.*per socket:" | awk ' { print $NF } ')
+set -x
+$TAR -s "/$BASE/$QCW/" -xzvf $BBX $BASE
 qemu-img convert -f qcow2 -O raw $QCW $RAW
+xz -T $T -9 -z $RAW
+set +x
+cd -
+echo "Build artifact ready:  $CMP/$BLD/$RAW.xz"
+ls -lh $CMP/$RAW.xz"

@@ -159,7 +159,7 @@
   ],
   "post-processors": [
     {
-      "execute_command": ["/usr/bin/env bash", "-c", "{{.Vars}} {{.Script}} {{build_name}} {{user `output_directory`}} {{user `complete_directory`}}"],
+      "execute_command": ["/usr/bin/env bash", "-c", "{{.Vars}} {{.Script}} {{user `complete_directory`}} {{build_name}}"],
       "type": "shell-local",
       "script": "scripts/post-processor-check.sh"
     },

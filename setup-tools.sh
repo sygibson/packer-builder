@@ -25,12 +25,15 @@ then
       inst=$(which yum 2> /dev/null)
       [[ -z "$inst" ]] && inst=$(which dnf 2> /dev/null)
       [[ -z "$inst" ]] && xiterr 1 "oops, how to install on '$osfamily'? (it ain't 'yum' or 'dnf')."
+      PKGS="xz"
     ;;
-    debian|ubuntu) inst=apt ;;
+    debian|ubuntu) inst=apt
+    PKGS="xz-utils"
+    ;;
     *) echo "Ask my masters for help, I don't know what to do for '$osfamily'."; exit 1;;
   esac
 
-  $inst -y install bsdtar 
+  $inst -y install bsdtar $PKGS
 else
   echo "'bsdtar' found in PATH, continuing"
 fi

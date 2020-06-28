@@ -6,13 +6,15 @@
 *.old
 *.iso
 *.backup
+findlog-*
+secrets*
 JSON-backup/
 output/
 linux/output/
+complete/
 completed/
 linux/completed/
 packer_cache/
 drivers/
 isos/
 tmp/
-secrets*
