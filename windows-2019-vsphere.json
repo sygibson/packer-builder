@@ -1,6 +1,10 @@
 {
   "variables": {
-    "vsphere_disk_size": "61440",
+    "winrm_username": "vagrant",
+    "winrm_password": "vagrant",
+    "output_directory": "output",
+    "complete_directory": "complete",
+    "vsphere_disk_size": "20480",
     "vsphere_iso_url": "[{{env `GOVC_DATASTORE`}}] iso/windows-2019-17763.737.190906-2324.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us_1.iso",
     "vsphere_tools_iso_url": "[{{env `GOVC_DATASTORE`}}] iso/VMware-tools-windows-11.0.5-15389592.iso",
     "vsphere_host": "{{env `GOVC_HOST`}}",
@@ -49,8 +53,8 @@
         "scripts/winrm.ps1"
       ],
       "communicator": "winrm",
-      "winrm_username": "vagrant",
-      "winrm_password": "vagrant",
+      "winrm_username": "{{user `winrm_username`}}",
+      "winrm_password": "{{user `winrm_password`}}",
       "winrm_timeout": "4h",
       "shutdown_command": "shutdown /s /t 0 /f /d p:4:1 /c \"Packer Shutdown\""
     }

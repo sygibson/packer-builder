@@ -1,8 +1,10 @@
 {
   "variables": {
     "disk_size": "20480",
-    "output_directory": "/scratch/output",
-    "complete_directory": "/scratch/complete",
+    "output_directory": "output",
+    "complete_directory": "complete",
+    "winrm_username": "vagrant",
+    "winrm_password": "vagrant",
     "iso_url": "https://software-download.microsoft.com/download/sg/17763.107.101029-1455.rs5_release_svc_refresh_CLIENT_LTSC_EVAL_x64FRE_en-us.iso",
     "iso_checksum": "668fe1af70c2f7416328aee3a0bb066b12dc6bbd2576f40f812b95741e18bc3a",
     "iso_checksum_type": "sha256"
@@ -23,7 +25,7 @@
         ["-device", "virtio-serial-pci"],
         ["-chardev", "socket,path=/tmp/{{.Name}}-qga.sock,server,nowait,id=qga0"],
         ["-device", "virtserialport,chardev=qga0,name=org.qemu.guest_agent.0"],
-        ["-display", "vnc,vnc_use_password=true,passwd=foobar,vnc_port_min=5950,vnc_port_max=5999"]
+	["-display", "vnc=password=off"]
       ],
       "headless": true,
       "format": "qcow2",
@@ -33,8 +35,8 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "communicator": "winrm",
-      "winrm_username": "vagrant",
-      "winrm_password": "vagrant",
+      "winrm_username": "{{user `winrm_username`}}",
+      "winrm_password": "{{user `winrm_password`}}",
       "winrm_timeout": "4h",
       "shutdown_command": "shutdown /s /t 0 /f /d p:4:1 /c \"Packer Shutdown\"",
       "http_directory": ".",
@@ -85,8 +87,8 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "communicator": "winrm",
-      "winrm_username": "vagrant",
-      "winrm_password": "vagrant",
+      "winrm_username": "{{user `winrm_username`}}",
+      "winrm_password": "{{user `winrm_password`}}",
       "winrm_timeout": "4h",
       "shutdown_command": "shutdown /s /t 0 /f /d p:4:1 /c \"Packer Shutdown\"",
       "floppy_files": [

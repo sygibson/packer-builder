@@ -8,13 +8,25 @@ Requires `git` (to get this repo!).
 Run the following two scripts to get Packer, Vagrant, and setup KVM/Qemu:
 
 * `setup-tools.sh` # sets up packer, vagrant, etc.
-* `setup-kvm.sh``  # sets up KVM, Qemu, and base tools
+* `setup-kvm.sh`  # sets up KVM, Qemu, and base tools
 
+`make` is used to initiate the image builds.  Use `make help` for build targets.
 
 # Example
 
-Run `do-win10` as a simplified example to build Windows 10 1909 (non-UEFI).  Performs builds in the directory where you cloned this github repo.
+The `do-win10` script is a simplified example to build Windows 10 1909 (non-UEFI).  Performs builds in the directory where you cloned this github repo.  Artifacts are produced by default in the `./output/<MAKE_TARGET>` directory.  Packer post-processors then perform conversions and stage the completed builds in the `./completed/<MAKE_TARGET>` directory.  Temporary scripts for builds are staged in `./tmp/`.  Control over these locations is performed by modify appropriate Packer variables, or by passing a customized `variables.json` file in as a build environment variable.
 
+Example:
+
+* `PACKER_OPTIONS="-var-file variables.json" TMPDIR=/tmp make build-windows-10-1909-libvirt`
+
+See the current `variables.json` for optional values that can be set.
+
+# An Important Service Announcement on Disk Space
+
+Because.  Windows.  Builds can take a huge amount of space if you have multiple builds happening.  The current JSON data files set the Windows disks to 20GB in size.  Just enough to install Windows.  The cleanup process will fill the entire disk with zeros to optimze.  Then a copy of the output image file will be processed - meaning that at least 2x the Disk size space is required per build. If additional post-processor copies are made, add additional Disk size multiples of disk.  It's easy to suddenly need upwards of 100GB per image build... 
+
+Why?  Because.  Windows.
 
 # Usage
 

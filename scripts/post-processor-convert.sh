@@ -2,7 +2,7 @@
 # post-process a packer vagrant box to raw image for Digital Rebar
 
 ###
-#  Requires:  bsdtar, qemu-img
+#  Requires:  bsdtar, qemu-img, md5 | md5sum, uuidgen
 ###
 
 set -e

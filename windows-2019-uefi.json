@@ -1,8 +1,8 @@
 {
   "variables": {
     "disk_size": "20480",
-    "output_directory": "/scratch/output",
-    "complete_directory": "/scratch/complete",
+    "output_directory": "output",
+    "complete_directory": "complete",
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
     "iso_url": "https://software-download.microsoft.com/download/pr/17763.737.190906-2324.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us_1.iso",
@@ -25,9 +25,9 @@
         ["-drive", "file=/usr/share/OVMF/OVMF_CODE.fd,if=pflash,format=raw,unit=0,readonly=on"],
         ["-drive", "file=windows-2019-uefi-amd64-libvirt.nvram,if=pflash,format=raw,unit=1"],
         ["-device", "virtio-serial-pci"],
-        ["-display", "vnc,vnc_use_password=true,passwd=foobar,vnc_port_min=5950,vnc_port_max=5999"],
         ["-chardev", "socket,path=/tmp/{{.Name}}-qga.sock,server,nowait,id=qga0"],
         ["-device", "virtserialport,chardev=qga0,name=org.qemu.guest_agent.0"]
+	["-display", "vnc=password=off"]
       ],
       "headless": false,
       "format": "qcow2",
